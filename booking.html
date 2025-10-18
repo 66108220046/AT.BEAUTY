@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="th">
 <head>
   <meta charset="utf-8" />
@@ -81,9 +81,30 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   }
 
-  .msg { text-align: center; margin-top: 10px; font-weight: 500; }
+  /* ---------------- Message ---------------- */
+  .msg {
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 600;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+  }
   .msg.error { color: #d35d6e; }
-  .msg.success { color: #5b7763; }
+  .msg.success {
+    color: #4ca36a;
+    font-size: 2em;
+    background: rgba(200,255,220,0.5);
+    border-radius: 15px;
+    padding: 15px;
+    display: inline-block;
+    animation: pop 0.5s ease;
+  }
+
+  @keyframes pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    70% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); }
+  }
 
   /* ---------------- Payment Info ---------------- */
   .payment-info {
@@ -120,6 +141,7 @@
     .payment-info { padding: 15px; }
     .nav-row { flex-direction: column; gap: 10px; }
     .main-nav a { margin-left: 0; margin-right: 10px; }
+    .msg.success { font-size: 1.5em; }
   }
   </style>
 </head>
@@ -185,7 +207,7 @@
 
   <footer class="site-footer" style="text-align:center; padding:15px;">© AT BEAUTY</footer>
 
-  <!-- ---------------- Script จอง ---------------- -->
+  <!-- ---------------- Script ---------------- -->
   <script>
     const getBookings = () => JSON.parse(localStorage.getItem('at_bookings') || '[]');
     const saveBookings = (b) => localStorage.setItem('at_bookings', JSON.stringify(b));
@@ -198,10 +220,9 @@
       window.location.href = 'index.html';
     });
 
-    // ---------------- Lock Date & Time ----------------
     const dateInput = document.getElementById('date');
     const now = new Date();
-    dateInput.min = now.toISOString().split('T')[0]; // ไม่ให้เลือกวันย้อนหลัง
+    dateInput.min = now.toISOString().split('T')[0];
 
     function generateTimeSlots(date) {
       const timeSelect = document.getElementById('time');
@@ -218,7 +239,7 @@
           const timeStr = `${h}:${m}`;
           const slotDateTime = new Date(`${date}T${timeStr}`);
           const diffMinutes = (slotDateTime - today) / (1000 * 60);
-          if (diffMinutes < 30) continue; // ต้องจองล่วงหน้าอย่างน้อย 30 นาที
+          if (diffMinutes < 30) continue;
           if (takenTimes.includes(timeStr)) continue;
 
           const opt = document.createElement('option');
@@ -238,7 +259,6 @@
 
     dateInput.addEventListener('change', e => generateTimeSlots(e.target.value));
 
-    // ---------------- Render Bookings ----------------
     function renderBookings() {
       const all = getBookings().filter(b => b.username === logged);
       all.sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
@@ -258,7 +278,6 @@
       });
     }
 
-    // ---------------- Validate Booking ----------------
     function isValidBooking(dateStr, timeStr) {
       const now = new Date();
       const bookingDateTime = new Date(`${dateStr}T${timeStr}`);
@@ -267,7 +286,6 @@
       return { ok: true };
     }
 
-    // ---------------- Submit Booking ----------------
     document.getElementById('bookingForm').addEventListener('submit', async e => {
       e.preventDefault();
       const service = document.getElementById('service').value;
@@ -300,11 +318,28 @@
       });
 
       saveBookings(bookings);
-      msgEl.textContent = 'จองสำเร็จ! 💚';
+      msgEl.textContent = '✅ จองสำเร็จแล้ว! ขอบคุณที่ไว้ใจ AT BEAUTY 💚';
       msgEl.className = 'msg success';
       renderBookings();
       generateTimeSlots(date);
       document.getElementById('bookingForm').reset();
+
+      // แสดงผลใหญ่กลางหน้าชั่วคราว (popup)
+      const popup = document.createElement('div');
+      popup.textContent = '🎉 จองสำเร็จแล้ว! 💚';
+      popup.style.position = 'fixed';
+      popup.style.top = '50%';
+      popup.style.left = '50%';
+      popup.style.transform = 'translate(-50%, -50%)';
+      popup.style.background = 'rgba(255,255,255,0.95)';
+      popup.style.padding = '40px 60px';
+      popup.style.borderRadius = '25px';
+      popup.style.fontSize = '2.5em';
+      popup.style.color = '#4ca36a';
+      popup.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
+      popup.style.animation = 'pop 0.6s ease';
+      document.body.appendChild(popup);
+      setTimeout(() => popup.remove(), 2000);
     });
 
     function readFileBase64(file) {

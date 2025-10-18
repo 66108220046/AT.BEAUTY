@@ -1,7 +1,7 @@
 /* ---------------- Font Import ---------------- */
 @font-face {
   font-family: 'FkCiderRegular'; /* ชื่อฟอนต์ที่เรียกใช้ใน CSS */
-  src: url('fonts/FkCiderRegular.woff') format('woff'); /* ที่อยู่ไฟล์ฟอนต์ */
+  src: url('FkCiderRegular.woff') format('woff'); /* ที่อยู่ไฟล์ฟอนต์ */
   font-weight: normal;
   font-style: normal;
 }
@@ -252,3 +252,4 @@ body {
   .booking-form .actions { flex-direction: column; }
   .services-grid, .contact-grid { flex-direction: column; align-items: center; }
 }
+

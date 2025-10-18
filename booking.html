@@ -324,22 +324,43 @@
       generateTimeSlots(date);
       document.getElementById('bookingForm').reset();
 
-      // แสดงผลใหญ่กลางหน้าชั่วคราว (popup)
+      // ✅ popup แบบค้างจอและให้ลูกค้ากดกลับเอง
       const popup = document.createElement('div');
-      popup.textContent = '🎉 จองสำเร็จแล้ว! 💚';
+      popup.innerHTML = `
+        <div style="
+          text-align:center;
+          font-size:2em;
+          color:#4ca36a;
+          margin-bottom:20px;
+        ">🎉 จองสำเร็จแล้ว! 💚</div>
+        <button id="backBtn" style="
+          padding:12px 25px;
+          background:linear-gradient(90deg,#b2f7ef,#ffecb3);
+          border:none;
+          border-radius:12px;
+          font-size:1em;
+          cursor:pointer;
+          font-weight:600;
+          transition:transform 0.2s;
+        ">กลับหน้าหลัก</button>
+      `;
       popup.style.position = 'fixed';
       popup.style.top = '50%';
       popup.style.left = '50%';
       popup.style.transform = 'translate(-50%, -50%)';
-      popup.style.background = 'rgba(255,255,255,0.95)';
-      popup.style.padding = '40px 60px';
+      popup.style.background = 'rgba(255,255,255,0.97)';
+      popup.style.padding = '50px 60px';
       popup.style.borderRadius = '25px';
-      popup.style.fontSize = '2.5em';
-      popup.style.color = '#4ca36a';
-      popup.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
-      popup.style.animation = 'pop 0.6s ease';
+      popup.style.boxShadow = '0 10px 25px rgba(0,0,0,0.25)';
+      popup.style.zIndex = '9999';
+      popup.style.textAlign = 'center';
+      popup.style.animation = 'pop 0.5s ease';
       document.body.appendChild(popup);
-      setTimeout(() => popup.remove(), 2000);
+
+      document.getElementById('backBtn').addEventListener('click', () => {
+        popup.remove();
+        window.location.href = 'index.html';
+      });
     });
 
     function readFileBase64(file) {

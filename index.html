@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AT BEAUTY - Landing / Login</title>
+
+  <style>
+/* ---------------- Font Import ---------------- */
+  @font-face {
+    font-family: 'FkCiderRegular';
+    src: url('fonts/FkCiderRegular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  /* ---------------- Body / Background ---------------- */
+  body {
+    font-family:FkCiderRegular;
+    background: linear-gradient(135deg, #D6EAF8, #FDEDEC, #FCF3CF, #D5F5E3);
+    background-size: 300% 300%;
+    animation: gradientFlow 10s ease infinite;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  /* ---------------- Header ---------------- */
+  .site-header {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 10px 0;
+  }
+
+  .site-header .brand {
+    font-size: 1.8em;
+    color: #7bbf9d;
+    margin: 0;
+  }
+
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+  }
+
+  .main-nav a {
+    color: #444;
+    text-decoration: none;
+    margin-left: 15px;
+    font-weight: 500;
+    transition: 0.3s;
+  }
+
+  .main-nav a:hover {
+    color: #7bcfa1;
+  }
+
+  /* ---------------- Hero Section ---------------- */
+  .hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px 30px;
+  }
+
+  .hero-text {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+  }
+
+  .hero-text h2 {
+    color: #5b7763;
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+
+  .hero-text p {
+    color: #666;
+    font-size: 1.1em;
+    line-height: 1.6;
+  }
+
+  .cta-row {
+    margin-top: 15px;
+  }
+
+  /* ---------------- ปุ่ม Call to Action ---------------- */
+  .btn {
+    display: inline-block;
+    background: linear-gradient(90deg, #b2f7ef, #ffecb3);
+    color: #333;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+    margin: 5px;
+  }
+
+  .btn:hover {
+    transform: scale(1.05);
+    background: linear-gradient(90deg, #a3d9b5, #fff5c3);
+  }
+
+  .btn.ghost {
+    background: #fff;
+    border: 2px solid #bde7cb;
+  }
+  .btn.ghost:hover {
+    background: #fdfdf8;
+  }
+
+  /* ---------------- กล่อง Login ---------------- */
+  .login-panel {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px 35px;
+    margin: 40px auto 0;
+    width: 340px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    text-align: left;
+    animation: fadeIn 1s ease;
+  }
+
+  .login-panel h3 {
+    text-align: center;
+    color: #5B7763;
+    margin-bottom: 20px;
+  }
+
+  .login-panel input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 15px;
+    border: 1px solid #ccd5ae;
+    border-radius: 8px;
+    background: #f8f9e8;
+    font-size: 1em;
+    transition: 0.3s;
+  }
+
+  .login-panel input:focus {
+    border-color: #a8e6cf;
+    box-shadow: 0 0 6px #bde7cb;
+    outline: none;
+  }
+
+  .login-panel button {
+    width: 100%;
+    background: linear-gradient(90deg, #a3d9b5, #f6e58d);
+    border: none;
+    color: #333;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .login-panel button:hover {
+    background: linear-gradient(90deg, #b7e4c7, #fff5c3);
+    transform: scale(1.03);
+  }
+
+  #loginMsg {
+    text-align: center;
+    margin-top: 10px;
+    color: #d35d6e;
+    font-weight: 500;
+  }
+
+  /* ---------------- Features Section ---------------- */
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin: 60px auto;
+    max-width: 1000px;
+    padding: 0 20px;
+  }
+
+  .features article {
+    flex: 1 1 260px;
+    background: rgba(255,255,255,0.85);
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+  }
+
+  .features article:hover {
+    transform: translateY(-5px);
+  }
+
+  .features h3 {
+    color: #7bcfa1;
+    margin-bottom: 10px;
+    font-size: 1.4em;
+  }
+
+  .features p {
+    color: #555;
+    font-size: 1em;
+  }
+
+  /* ---------------- Footer ---------------- */
+  .site-footer {
+    text-align: center;
+    padding: 15px;
+    background: rgba(255,255,255,0.7);
+    color: #666;
+    font-size: 0.9em;
+    margin-top: 50px;
+  }
+
+  /* ---------------- Animation ---------------- */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* ---------------- Responsive ---------------- */
+  @media (max-width: 768px) {
+    .hero { flex-direction: column; }
+    .hero-text { order: 1; }
+    .hero-image { order: 2; }
+  }
+  </style>
+</head>
+
+<body>
+
+  <!-- ---------------- Header ---------------- -->
+  <header class="site-header">
+    <div class="container nav-row">
+      <h1 class="brand">AT BEAUTY</h1>
+      <nav class="main-nav">
+        <a href="index.html">หน้าหลัก</a>
+        <a href="services.html">บริการของเรา</a>
+        <a href="booking.html">จองคิว</a>
+        <a href="contact.html">ติดต่อเรา</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ---------------- Hero Section ---------------- -->
+  <main class="container landing">
+    <section class="hero">
+      <div class="hero-text">
+        <h2>ยินดีต้อนรับสู่ AT BEAUTY</h2>
+        <p>บริการต่อขนตาและทำเล็บ โปรโมชั่นพิเศษทุกเดือน</p>
+        <p class="cta-row">
+          <a class="btn" href="services.html">ดูบริการ</a>
+          <a class="btn ghost" href="register.html">สมัครสมาชิก</a>
+        </p>
+
+        <!-- ---------------- Login Panel ---------------- -->
+        <div class="login-panel">
+          <h3>เข้าสู่ระบบ</h3>
+          <form id="loginForm">
+            <input type="text" id="loginUsername" placeholder="ชื่อผู้ใช้" required>
+            <input type="password" id="loginPassword" placeholder="รหัสผ่าน" required>
+            <button type="submit">เข้าสู่ระบบ</button>
+            <div id="loginMsg"></div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ---------------- Hero Image ---------------- -->
+      <div class="hero-image">
+        <img src="https://salonthai.com/wp-content/uploads/2024/04/Double-P-Nail-Lashes-%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%97%E0%B8%B3%E0%B9%80%E0%B8%A5%E0%B9%87%E0%B8%9A-%E0%B8%95%E0%B9%88%E0%B8%AD%E0%B8%82%E0%B8%99%E0%B8%95%E0%B8%B2.jpg"
+        alt="ร้านทำเล็บ ต่อขนตา" width="500" style="border-radius:20px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+      </div>
+    </section>
+
+    <!-- ---------------- Features Section ---------------- -->
+    <section class="features">
+      <article>
+        <h3>ต่อขนตา</h3>
+        <p>เทคนิคมาตรฐาน ปลอดภัย บริการอย่างมืออาชีพ</p>
+        <img src="img/eye.png"
+        alt="ร้านทำเล็บ ต่อขนตา" width="400" style="border-radius:20px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+      </article>
+      <article>
+        <h3>ทำเล็บ</h3>
+        <p>สีเจลคุณภาพ มือและเท้า </p>
+        <img src="img/nail.png"
+        alt="ร้านทำเล็บ ต่อขนตา" width="400" style="border-radius:20px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+      </article>
+    </section>
+  </main>
+
+  <!-- ---------------- Footer ---------------- -->
+  <footer class="site-footer">
+    © AT BEAUTY • โทร: 091-234-5678 • LINE: @at.beauty
+  </footer>
+
+  <!-- ---------------- Script Login ---------------- -->
+  <script>
+    const getUsers = () => JSON.parse(localStorage.getItem('at_users') || '[]');
+    const setLoggedIn = (username, role) => {
+      localStorage.setItem('loggedInUser', username);
+      localStorage.setItem('userRole', role);
+    };
+
+    (function ensureAdmin(){
+      const users = getUsers();
+      if(!users.find(u=>u.username==='admin')){
+        users.push({ username:'admin', phone:'', password:'12345678', role:'admin' });
+        localStorage.setItem('at_users', JSON.stringify(users));
+      }
+    })();
+
+    document.getElementById('loginForm').addEventListener('submit', e=>{
+      e.preventDefault();
+      const u = document.getElementById('loginUsername').value.trim();
+      const p = document.getElementById('loginPassword').value;
+      const users = getUsers();
+      const user = users.find(x=>x.username===u && x.password===p);
+      const msg = document.getElementById('loginMsg');
+
+      if(user){
+        setLoggedIn(user.username, user.role || 'customer');
+        msg.textContent = 'เข้าสู่ระบบสำเร็จ กำลังพาไป...';
+        setTimeout(()=>{
+          if(user.role==='admin'){ window.location.href = 'admin.html'; }
+          else { window.location.href = 'booking.html'; }
+        }, 500);
+      } else {
+        msg.textContent = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
+      }
+    });
+  </script>
+
+  <!-- ---------------- Firebase Script ---------------- -->
+  <script type="module">
+    import { app, analytics } from "./firebase.js";
+    // สามารถใช้ app หรือ analytics เพิ่มเติมใน script นี้ได้
+  </script>
+
+</body>
+</html>

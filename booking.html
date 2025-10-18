@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>จองคิว - AT BEAUTY</title>
+
+  <style>
+  /* ---------------- Font ---------------- */
+  @font-face {
+    font-family: 'FkCiderRegular';
+    src: url('fonts/FkCiderRegular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  /* ---------------- Body / Background ---------------- */
+  body {
+    font-family: 'FkCiderRegular', sans-serif;
+    background: linear-gradient(135deg, #D6EAF8, #FDEDEC, #FCF3CF, #D5F5E3);
+    background-size: 300% 300%;
+    animation: gradientFlow 10s ease infinite;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  /* ---------------- Header ---------------- */
+  .site-header { 
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 10px 0;
+  }
+
+  .brand { font-size: 1.8em; color: #7bbf9d; margin: 0; }
+  .nav-row { display: flex; justify-content: space-between; align-items: center; width: 90%; margin: auto; }
+  .main-nav a { color: #444; text-decoration: none; margin-left: 15px; font-weight: 500; }
+  .main-nav a:hover { color: #7bcfa1; }
+
+  /* ---------------- Main ---------------- */
+  main.container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+  main h2 { text-align: center; color: #5b7763; margin-bottom: 25px; }
+
+  /* ---------------- Booking Form ---------------- */
+  .booking-form {
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px 35px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+  }
+
+  .booking-form label { display: block; margin-bottom: 5px; color: #5b7763; font-weight: 500; }
+  .booking-form input, .booking-form select, .booking-form textarea {
+    width: 100%; padding: 10px; border: 1px solid #ccd5ae; border-radius: 8px;
+    background: #f8f9e8; font-size: 1em;
+  }
+  .booking-form input:focus, .booking-form select:focus, .booking-form textarea:focus {
+    outline: none;
+    border-color: #a8e6cf;
+    box-shadow: 0 0 6px #bde7cb;
+  }
+
+  /* ---------------- Buttons ---------------- */
+  .btn { 
+    background: linear-gradient(90deg, #b2f7ef, #ffecb3); 
+    color: #333; padding: 10px 18px; border-radius: 8px; 
+    font-weight: 600; cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+  }
+  .btn:hover { transform: scale(1.05); background: linear-gradient(90deg, #a3d9b5, #fff5c3); }
+  .btn.ghost { background: #fff; border: 2px solid #bde7cb; }
+  .btn.ghost:hover { background: #fdfdf8; }
+
+  /* ---------------- Booking Item ---------------- */
+  .booking-item { 
+    background: rgba(255,255,255,0.85); 
+    padding: 15px 20px; border-radius: 15px; 
+    margin-bottom: 12px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+
+  .msg { text-align: center; margin-top: 10px; font-weight: 500; }
+  .msg.error { color: #d35d6e; }
+  .msg.success { color: #5b7763; }
+
+  /* ---------------- Payment Info ---------------- */
+  .payment-info {
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+  .payment-info img {
+    max-width: 700px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .payment-info p {
+    font-size: 0.95em;
+    color: #5b7763;
+    line-height: 1.4em;
+  }
+
+  @keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* ---------------- Responsive ---------------- */
+  @media (max-width: 600px){
+    .booking-form { padding: 20px; }
+    .payment-info { padding: 15px; }
+    .nav-row { flex-direction: column; gap: 10px; }
+    .main-nav a { margin-left: 0; margin-right: 10px; }
+  }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container nav-row">
+      <h1 class="brand">AT BEAUTY</h1>
+      <nav class="main-nav">
+        <a href="index.html">หน้าหลัก</a>
+        <a href="services.html">บริการของเรา</a>
+        <a href="booking.html">จองคิว</a>
+        <a href="contact.html">ติดต่อเรา</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>จองคิวของคุณ</h2>
+
+    <!-- กล่องช่องทางการโอนเงิน -->
+    <section class="payment-info">
+      <img src="img/payment.png" alt="QR Payment" />
+      <p>สแกน QR เพื่อโอนเงินมัดจำการจองคิว 100 บาท</p>
+    </section>
+
+    <!-- ฟอร์มจอง -->
+    <section class="booking-form">
+      <form id="bookingForm">
+        <label>บริการ</label>
+        <select id="service">
+          <option value="ต่อขนตา">ต่อขนตา</option>
+          <option value="ทำเล็บ">ทำเล็บ</option>
+          <option value="ชุดต่อ+เล็บ">ต่อขนตา + ทำเล็บ</option>
+        </select>
+
+        <label>วันที่</label>
+        <input id="date" type="date" required />
+
+        <label>เวลา (เฉพาะช่วง 10:00 - 19:00)</label>
+        <select id="time" required></select>
+
+        <label>รายละเอียดเพิ่มเติม (ไม่บังคับ)</label>
+        <textarea id="notes"></textarea>
+
+        <label>แนบสลิปการโอน (รูป)</label>
+        <input id="slip" type="file" accept="image/*" />
+
+        <div style="margin-top:15px; text-align:center;">
+          <button class="btn" type="submit">ยืนยันการจอง</button>
+          <button class="btn ghost" id="logoutBtn" type="button">ออกจากระบบ</button>
+        </div>
+        <div id="bookMsg" class="msg"></div>
+      </form>
+    </section>
+
+    <!-- แสดงรายการจอง -->
+    <section class="booking-list">
+      <h3 style="text-align:center;">รายการจองของคุณ</h3>
+      <div id="bookingsContainer"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer" style="text-align:center; padding:15px;">© AT BEAUTY</footer>
+
+  <!-- ---------------- Script จอง ---------------- -->
+  <script>
+    const getBookings = () => JSON.parse(localStorage.getItem('at_bookings') || '[]');
+    const saveBookings = (b) => localStorage.setItem('at_bookings', JSON.stringify(b));
+    const logged = localStorage.getItem('loggedInUser');
+    const msgEl = document.getElementById('bookMsg');
+    if (!logged) { alert('กรุณาเข้าสู่ระบบก่อนจอง'); window.location.href = 'index.html'; }
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('loggedInUser');
+      window.location.href = 'index.html';
+    });
+
+    // ---------------- Lock Date & Time ----------------
+    const dateInput = document.getElementById('date');
+    const now = new Date();
+    dateInput.min = now.toISOString().split('T')[0]; // ไม่ให้เลือกวันย้อนหลัง
+
+    function generateTimeSlots(date) {
+      const timeSelect = document.getElementById('time');
+      timeSelect.innerHTML = '';
+      const bookings = getBookings().filter(b => b.date === date);
+      const takenTimes = bookings.map(b => b.time);
+
+      const today = new Date();
+      for (let hour = 10; hour <= 19; hour++) {
+        for (let min of [0, 30]) {
+          if (hour === 19 && min > 0) break;
+          const h = String(hour).padStart(2, '0');
+          const m = String(min).padStart(2, '0');
+          const timeStr = `${h}:${m}`;
+          const slotDateTime = new Date(`${date}T${timeStr}`);
+          const diffMinutes = (slotDateTime - today) / (1000 * 60);
+          if (diffMinutes < 30) continue; // ต้องจองล่วงหน้าอย่างน้อย 30 นาที
+          if (takenTimes.includes(timeStr)) continue;
+
+          const opt = document.createElement('option');
+          opt.value = timeStr;
+          opt.textContent = timeStr;
+          timeSelect.appendChild(opt);
+        }
+      }
+
+      if (timeSelect.options.length === 0) {
+        const opt = document.createElement('option');
+        opt.value = '';
+        opt.textContent = 'เต็มแล้วทุกช่วงเวลา';
+        timeSelect.appendChild(opt);
+      }
+    }
+
+    dateInput.addEventListener('change', e => generateTimeSlots(e.target.value));
+
+    // ---------------- Render Bookings ----------------
+    function renderBookings() {
+      const all = getBookings().filter(b => b.username === logged);
+      all.sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
+      const container = document.getElementById('bookingsContainer');
+      container.innerHTML = '';
+      if (all.length === 0) { container.innerHTML = '<p>ยังไม่มีรายการจอง</p>'; return; }
+      all.forEach(b => {
+        const el = document.createElement('div'); el.className = 'booking-item';
+        el.innerHTML = `
+          <strong>${b.service}</strong><br>
+          วันที่: ${b.date} เวลา: ${b.time}<br>
+          สถานะ: ${b.status || 'รอการยืนยัน'}<br>
+          หมายเหตุ: ${b.notes || '-'}<br>
+          ${b.slip ? `<img src="${b.slip}" alt="slip" style="max-width:150px;margin-top:10px;border-radius:10px;"/>` : ''}
+        `;
+        container.appendChild(el);
+      });
+    }
+
+    // ---------------- Validate Booking ----------------
+    function isValidBooking(dateStr, timeStr) {
+      const now = new Date();
+      const bookingDateTime = new Date(`${dateStr}T${timeStr}`);
+      const diffMinutes = (bookingDateTime - now) / (1000 * 60);
+      if (diffMinutes < 30) return { ok: false, msg: 'ต้องจองล่วงหน้าอย่างน้อย 30 นาที' };
+      return { ok: true };
+    }
+
+    // ---------------- Submit Booking ----------------
+    document.getElementById('bookingForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const service = document.getElementById('service').value;
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+      const notes = document.getElementById('notes').value.trim();
+      const slipFile = document.getElementById('slip').files[0];
+
+      if (!date || !time) { msgEl.textContent = 'กรุณาเลือกวันและเวลา'; msgEl.className = 'msg error'; return; }
+      const valid = isValidBooking(date, time);
+      if (!valid.ok) { msgEl.textContent = valid.msg; msgEl.className = 'msg error'; return; }
+
+      const bookings = getBookings();
+      if (bookings.some(b => b.date === date && b.time === time)) {
+        msgEl.textContent = 'เวลานี้ถูกจองแล้ว กรุณาเลือกเวลาอื่น';
+        msgEl.className = 'msg error';
+        return;
+      }
+
+      let slipData = '';
+      if (slipFile) slipData = await readFileBase64(slipFile);
+
+      bookings.push({
+        id: 'b_' + Date.now(),
+        username: logged,
+        service, date, time, notes,
+        slip: slipData,
+        status: 'รอการยืนยัน',
+        datetime: new Date().toISOString()
+      });
+
+      saveBookings(bookings);
+      msgEl.textContent = 'จองสำเร็จ! 💚';
+      msgEl.className = 'msg success';
+      renderBookings();
+      generateTimeSlots(date);
+      document.getElementById('bookingForm').reset();
+    });
+
+    function readFileBase64(file) {
+      return new Promise((res, rej) => {
+        const r = new FileReader();
+        r.onload = () => res(r.result);
+        r.onerror = () => rej('Error');
+        r.readAsDataURL(file);
+      });
+    }
+
+    renderBookings();
+  </script>
+</body>
+</html>

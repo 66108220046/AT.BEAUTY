@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Dashboard - AT BEAUTY</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Hero Section for Admin */
+    .hero-admin {
+      display:flex; flex-wrap:wrap; align-items:center; justify-content:center; text-align:center; padding:30px 20px; margin-bottom:20px;
+      background: rgba(255,255,255,0.8); backdrop-filter: blur(6px); border-radius:20px; box-shadow:0 4px 12px rgba(0,0,0,0.05);
+    }
+    .hero-admin h2 { color:#5b7763; margin:0; }
+    .hero-admin p { color:#666; font-size:1em; }
+
+    /* Admin page layout */
+    .admin-page { max-width:900px; margin:auto; padding:20px; }
+    .actions-row { display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; justify-content:center; }
+    .user-item, .booking-admin { margin-bottom:12px; }
+
+    /* Status tag */
+    .status { font-weight:600; }
+    .status.pending { color:#d35d6e; }   /* รอการยืนยัน สีแดง */
+    .status.confirmed { color:#4caf50; } /* ยืนยันแล้ว สีเขียว */
+
+    /* รูปสลิป */
+    .booking-admin img.slip-thumb {
+      max-width: 100%;
+      height: auto;
+      margin-top:10px;
+      border-radius:10px;
+      box-shadow:0 3px 8px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-row">
+      <h1 class="brand">AT BEAUTY - ADMIN</h1>
+      <nav class="main-nav">
+        <a href="index.html">หน้าหลัก</a>
+        <a href="services.html">บริการของเรา</a>
+        <a href="booking.html">จองคิว</a>
+        <a href="contact.html">ติดต่อเรา</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section Admin -->
+  <section class="hero-admin">
+    <div>
+      <h2>สำหรับผู้ดูแลระบบ</h2>
+      <p>จัดการการจองและผู้ใช้ทั้งหมดของ AT BEAUTY</p>
+    </div>
+  </section>
+
+  <main class="container admin-page">
+    <div class="actions-row">
+      <button id="logoutBtn" class="btn ghost">ออกจากระบบ</button>
+      <button id="addBookingBtn" class="btn">เพิ่มการจอง</button>
+    </div>
+
+    <section>
+      <h3>รายการจองทั้งหมด</h3>
+      <div id="allBookings"></div>
+    </section>
+
+    <section>
+      <h3>จัดการผู้ใช้</h3>
+      <div id="userList"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container">© AT BEAUTY</div></footer>
+
+  <script>
+    const logged = localStorage.getItem('loggedInUser');
+    const role = localStorage.getItem('userRole');
+    if(!logged || role!=='admin'){ alert('ต้องเป็นผู้ดูแลระบบเท่านั้น'); window.location.href='index.html'; }
+
+    const getUsers = ()=> JSON.parse(localStorage.getItem('at_users')||'[]');
+    const saveUsers = u=> localStorage.setItem('at_users', JSON.stringify(u));
+    const getBookings = ()=> JSON.parse(localStorage.getItem('at_bookings')||'[]');
+    const saveBookings = b=> localStorage.setItem('at_bookings', JSON.stringify(b));
+
+    document.getElementById('logoutBtn').addEventListener('click', ()=>{ 
+      localStorage.removeItem('loggedInUser'); 
+      localStorage.removeItem('userRole'); 
+      window.location.href='index.html'; 
+    });
+
+    function renderUsers(){
+      const users = getUsers();
+      const c = document.getElementById('userList'); c.innerHTML='';
+      users.forEach(u=>{
+        const el = document.createElement('div'); el.className='card user-item';
+        el.innerHTML = `
+          <strong>${u.username}</strong> (${u.role||'customer'})
+          <div>โทร: ${u.phone||'-'}</div>
+          <div class="row">
+            <button class="btn" data-username="${u.username}" onclick="resetPass('${u.username}')">รีเซ็ตรหัส</button>
+            <button class="btn ghost" onclick="deleteUser('${u.username}')">ลบ</button>
+          </div>
+        `;
+        c.appendChild(el);
+      });
+    }
+
+    function renderBookings(){
+      const bookings = getBookings();
+      bookings.sort((a,b)=> new Date(b.datetime) - new Date(a.datetime));
+      const c = document.getElementById('allBookings'); c.innerHTML='';
+      bookings.forEach(bk=>{
+        const el = document.createElement('div'); el.className='card booking-admin';
+
+        let statusClass = bk.status==='ยืนยันแล้ว' ? 'confirmed' : 'pending';
+
+        el.innerHTML = `
+          <div><strong>${bk.service}</strong> — ${bk.username}</div>
+          <div>วันที่: ${bk.date} เวลา: ${bk.time}</div>
+          <div>สถานะ: <span class="status ${statusClass}">${bk.status}</span></div>
+          <div>บันทึก: ${bk.notes||'-'}</div>
+          ${bk.slip?`<div><img src="${bk.slip}" class="slip-thumb"/></div>`:''}
+          <div class="row">
+            <button class="btn" onclick="confirmBooking('${bk.id}')">ยืนยัน</button>
+            <button class="btn" onclick="editBooking('${bk.id}')">แก้ไข</button>
+            <button class="btn ghost" onclick="deleteBooking('${bk.id}')">ลบ</button>
+          </div>
+        `;
+        c.appendChild(el);
+      });
+    }
+
+    window.deleteUser = function(username){
+      if(!confirm('ลบผู้ใช้นี้?')) return;
+      let users = getUsers();
+      users = users.filter(u=>u.username!==username);
+      saveUsers(users);
+      renderUsers();
+    }
+
+    window.deleteBooking = function(id){
+      if(!confirm('ลบการจองนี้?')) return;
+      let b = getBookings(); b = b.filter(x=>x.id!==id);
+      saveBookings(b); renderBookings();
+    }
+
+    window.confirmBooking = function(id){
+      let b = getBookings();
+      const idx = b.findIndex(x=>x.id===id); if(idx===-1) return;
+      b[idx].status = 'ยืนยันแล้ว'; 
+      saveBookings(b); 
+      renderBookings();
+    }
+
+    window.editBooking = function(id){
+      let b = getBookings();
+      const idx = b.findIndex(x=>x.id===id); if(idx===-1) return; const bk = b[idx];
+      const date = prompt('วันที่', bk.date); if(!date) return;
+      const time = prompt('เวลา', bk.time); if(!time) return;
+      const service = prompt('บริการ', bk.service) || bk.service;
+      bk.date = date; bk.time = time; bk.service = service; bk.datetime = new Date().toISOString();
+      saveBookings(b); renderBookings();
+    }
+
+    document.getElementById('addBookingBtn').addEventListener('click', ()=>{
+      const username = prompt('ระบุชื่อผู้ใช้ (ลูกค้า)');
+      if(!username) return; const users = getUsers(); if(!users.find(u=>u.username===username)){ alert('ไม่พบผู้ใช้'); return; }
+      const service = prompt('บริการ'); const date = prompt('วันที่ (YYYY-MM-DD)'); const time = prompt('เวลา (HH:MM)');
+      if(!service||!date||!time){ alert('ข้อมูลไม่ครบ'); return; }
+      const b = getBookings(); 
+      b.push({id:'b_'+Date.now(), username, service, date, time, notes:'(เพิ่มโดยแอดมิน)', status:'ยืนยันแล้ว', datetime: new Date().toISOString()});
+      saveBookings(b); renderBookings();
+    });
+
+    function resetPass(username){
+      const users = getUsers();
+      const idx = users.findIndex(x=>x.username===username);
+      if(idx===-1) return; users[idx].password = '12345678'; saveUsers(users); alert('รีเซ็ตรหัสผ่านเป็น 12345678'); renderUsers();
+    }
+
+    renderUsers(); 
+    renderBookings();
+  </script>
+</body>
+</html>

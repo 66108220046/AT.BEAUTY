@@ -1,0 +1,254 @@
+/* ---------------- Font Import ---------------- */
+@font-face {
+  font-family: 'FkCiderRegular'; /* ชื่อฟอนต์ที่เรียกใช้ใน CSS */
+  src: url('fonts/FkCiderRegular.woff') format('woff'); /* ที่อยู่ไฟล์ฟอนต์ */
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ---------------- Body / Background ---------------- */
+body {
+  font-family: 'FkCiderRegular', sans-serif; /* ใช้ฟอนต์นี้กับทุกองค์ประกอบ */
+  background: linear-gradient(135deg, #D6EAF8, #FDEDEC, #FCF3CF, #D5F5E3);
+  background-size: 300% 300%;
+  animation: gradientFlow 15s ease infinite;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* ---------------- Header ---------------- */
+.site-header {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 10px 0;
+}
+.site-header .brand {
+  font-size: 1.8em;
+  color: #7bbf9d;
+  margin: 0;
+}
+.nav-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: auto;
+}
+.main-nav a {
+  color: #444;
+  text-decoration: none;
+  margin-left: 15px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+.main-nav a:hover {
+  color: #7bcfa1;
+}
+
+/* ---------------- Hero Section ---------------- */
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+}
+.hero-text {
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+}
+.hero-text h2 {
+  color: #5b7763;
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+.hero-text p {
+  color: #666;
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+.cta-row {
+  margin-top: 15px;
+}
+.hero-image img {
+  width: 300px;
+  max-width: 50%;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* ---------------- Buttons ---------------- */
+.btn {
+  display: inline-block;
+  background: linear-gradient(90deg, #b2f7ef, #ffecb3);
+  color: #333;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+  cursor: pointer;
+  margin: 5px;
+}
+.btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg,#a3d9b5,#fff5c3);
+}
+.btn.ghost {
+  background: #fff;
+  border: 2px solid #bde7cb;
+}
+.btn.ghost:hover {
+  background: #fdfdf8;
+}
+
+/* ---------------- Cards ---------------- */
+.card {
+  background: rgba(255,255,255,0.85);
+  border-radius: 20px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  transition: transform 0.3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+.card h3, .card h4 {
+  color: #7bcfa1;
+  margin-bottom: 10px;
+}
+.card p {
+  color: #555;
+  font-size: 1em;
+}
+.map-placeholder {
+  height: 150px;
+  background: #f1f1f1;
+  border-radius: 15px;
+  line-height: 150px;
+  color: #999;
+}
+
+/* ---------------- Service: ต่อขนตา ---------------- */
+.service-eyelash img {
+  width: 600px;
+  max-width: 100%;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+.service-eyelash img:hover {
+  transform: scale(1.05);
+}
+
+/* ---------------- Booking Form ---------------- */
+.booking-form {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px 35px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  margin: 20px auto 40px;
+  max-width: 600px;
+}
+.booking-form .form-row {
+  margin-bottom: 15px;
+}
+.booking-form label {
+  display: block;
+  margin-bottom: 5px;
+  color: #5b7763;
+  font-weight: 500;
+}
+.booking-form input, .booking-form select, .booking-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccd5ae;
+  border-radius: 8px;
+  background: #f8f9e8;
+  font-size: 1em;
+  transition: 0.3s;
+}
+.booking-form input:focus,
+.booking-form select:focus,
+.booking-form textarea:focus {
+  border-color: #a8e6cf;
+  box-shadow: 0 0 6px #bde7cb;
+  outline: none;
+}
+.booking-form textarea {
+  min-height: 80px;
+}
+.booking-form .actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* ---------------- Booking List ---------------- */
+.booking-list {
+  max-width: 600px;
+  margin: auto;
+  padding: 0 20px;
+}
+.booking-list h3 {
+  color: #5b7763;
+  margin-bottom: 15px;
+  text-align: center;
+}
+.booking-item {
+  background: rgba(255,255,255,0.85);
+  padding: 15px 20px;
+  border-radius: 15px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.booking-item img.slip-thumb {
+  max-width: 150px;
+  margin-top: 10px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+.msg {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 500;
+}
+.msg.error {
+  color: #d35d6e;
+}
+.msg.success {
+  color: #5b7763;
+}
+
+/* ---------------- Footer ---------------- */
+.site-footer {
+  text-align: center;
+  padding: 15px;
+  background: rgba(255,255,255,0.7);
+  color: #666;
+  font-size: 0.9em;
+  margin-top: 50px;
+}
+
+/* ---------------- Animations ---------------- */
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ---------------- Responsive ---------------- */
+@media(max-width:768px){
+  .hero { flex-direction: column; }
+  .hero-text { order: 1; }
+  .hero-image { order: 2; margin-top: 20px; }
+  .booking-form .actions { flex-direction: column; }
+  .services-grid, .contact-grid { flex-direction: column; align-items: center; }
+}

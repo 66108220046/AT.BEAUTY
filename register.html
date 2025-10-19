@@ -165,7 +165,7 @@
       e.preventDefault();
 
       const u = document.getElementById('regUser').value.trim();
-      const phone = document.getElementById('regname').value.trim();
+      const name = document.getElementById('regname').value.trim();
       const phone = document.getElementById('regPhone').value.trim();
       const p1 = document.getElementById('regPass').value;
       const p2 = document.getElementById('regPass2').value;
@@ -192,7 +192,7 @@
         return;
       }
 
-      users.push({ username: u, phone: phone, password: p1, role: 'customer' });
+      users.push({ username: u, ninckname: name, phone: phone, password: p1, role: 'customer' });
       saveUsers(users);
 
       // 🔔 แสดง popup สำเร็จแบบค้างจอ
@@ -233,4 +233,5 @@
   </script>
 </body>
 </html>
+
 

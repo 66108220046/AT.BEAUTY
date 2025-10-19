@@ -128,7 +128,14 @@
       </div>
       <div class="form-row">
         <label>เบอร์โทร</label>
-        <input id="regPhone" required />
+        <input id="regPhone" required 
+          inputmode="numeric"
+          pattern="[0-9]{10}"
+          maxlength="10"
+          placehoder="กรอกเบอร์โทร 10 หลัก "
+          required
+          oninput="this.value=this.value.replace9/[^0-9]/g,'')"
+          />
       </div>
       <div class="form-row">
         <label>รหัสผ่าน</label>
@@ -233,5 +240,6 @@
   </script>
 </body>
 </html>
+
 
 

@@ -124,7 +124,7 @@
       </div>
   <div class="form-row">
         <label>ชื่อเล่น</label>
-        <input id="regPhone" required />
+        <input id="regname" required />
       </div>
       <div class="form-row">
         <label>เบอร์โทร</label>
@@ -165,6 +165,7 @@
       e.preventDefault();
 
       const u = document.getElementById('regUser').value.trim();
+      const phone = document.getElementById('regname').value.trim();
       const phone = document.getElementById('regPhone').value.trim();
       const p1 = document.getElementById('regPass').value;
       const p2 = document.getElementById('regPass2').value;
@@ -232,3 +233,4 @@
   </script>
 </body>
 </html>
+
